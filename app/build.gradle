@@ -17,6 +17,16 @@ android {
         versionName "2.0.1"
     }
 
+    // Sign both debug and release with a single key so that LWA always works
+    // In practice you would have separate keys for debug and release
+    signingConfigs {
+        releaseConfig {
+            storeFile file('keystore.jks')
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storePassword 'android'
+        }
+    }
 
         buildTypes {
             debug{
