@@ -39,6 +39,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.willblaschko.android.alexavoicelibrary.global.Constants.PRODUCT_ID;
+import android.content.SharedPreferences.Editor;
+import com.willblaschko.android.alexa.utility.Util;
 
 /**
  * @author will on 5/30/2016.
@@ -60,9 +62,24 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseList
 
     private long startTime = 0;
 
+    public void SaveToken(String refresh_token, String access_token, long expires_in) {
+        String REFRESH_TOKEN = refresh_token;
+        String ACCESS_TOKEN = access_token;
+        Editor preferences = Util.getPreferences(this.getApplicationContext()).edit();
+        preferences.putString("access_token", ACCESS_TOKEN);
+        preferences.putString("refresh_token", REFRESH_TOKEN);
+        preferences.putLong("token_expires", System.currentTimeMillis() + expires_in * 1000L);
+        preferences.commit();
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        String access_token = "Atza|IwEBIK7GFgdg1jp2biexRuZJ2UMchZ0ZOfbYuYbKSWaAei9zfZWfb332l6F7ULrY8phC4nkiFU0lyQWv9m8anFzQ-2JX_juHaaPVsE058ICZnorDHinJcuRXgtegAzUCSpl6WWq1WYZIWDXq6axI6ysOKCl6HIs2VznhQiwHc45n0QZcMo4p8BDIdXNpYCEPjGE13UPFU8_6AryU1qPgRF1CXIS7I_rLqJ7mpSb5vA40xdJhCAtySeQF2UHshJZO2GZf91MbOji7sQwoA4jxzWZmYLYDKWZgVAmKTgG8b_Cny3-fpucLDDU_8G1ulHy22yS7P4jhdz78A3sjobZXbfrOtOyc15EahNHWluNTQPDNn4ccsJAY7qMW_ZZ39TE-h91IIX9Qge2wY5BtQEXrZ9fJ1949FjhK071Yl0XUs-GeQQY8OxslzGvbSlAly0EMikz5mg0OyOSKh4nsIJsBDzpMIWWPspxj0VsHH9Tw2c7L_zK0DQHEC1G2ESNaqxAxzY8LswM";
+//        String refresh_token = "Atzr|IwEBIHkFg2Ef3u73z1cmfE7qkwOWXPR_2ZZCNeZS1Js61W625nE2p0gb5K7v-DT4PRPrnuRrgY9PLRCZh7MnDRzAh5XEO1mKABKrTLRer0gDCPZ_l7Otje0D3fGSjYbMmP-WGxqx5AQbf-6rJYL0kJvuorb4dlkzByi89L8EMyaU8qDktGAGoaH92ii3vY3prDBOeN_tk1fxGZ27m5V01bK0aUN7OmStQQ_zypZ0i4Cfjb5MwD-u8UM_w63elovvrRGU1pKNH1TwmI4m-m2Pamw9WXUxDJO9CKfTkCOyJRQHpTmAawcPN6-eMe5DM983BUUH8qK2V-ULaT4aFs9IimaClQNfcFtMv8nVsCHy58U3EJ-Ifw8Yh7pWUIL61MlI4Fnvb0TOSKUMFhaE3wMb0oCw86nTurvK3I6G7UfbdGs0HnVUA_pDvJjzUDtJq8uLbjGJqVvn-ip0cWtB1xssVk2osnyVtK91EvsNaiaiIDE1HahkBo4TJzHOD2ojq9z8yKb5gN-CoxC3XHU9ZxCDFfr6EJQO";
+//
+//        SaveToken(refresh_token, access_token, 0);
 
         initAlexaAndroid();
     }
